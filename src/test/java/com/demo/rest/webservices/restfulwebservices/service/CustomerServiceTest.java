@@ -57,5 +57,6 @@ public class CustomerServiceTest {
         when(customerRepositoryMock.findById(customer.getId())).thenReturn(null);
         Exception exception = assertThrows(Exception.class, ()->customerService.removeCustomer(customer.getId()));
         assertEquals("Customer does not exist to delete!", exception.getMessage());
+
     }
 }
