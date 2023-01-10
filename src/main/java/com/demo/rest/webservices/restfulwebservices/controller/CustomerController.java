@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
 
     @Autowired
@@ -30,27 +31,19 @@ public class CustomerController {
     }
 
     @PutMapping("/api/updateCustomer")
-    public void updateCustomer(@RequestBody Customer student){
+    public void updateCustomer(@RequestBody Customer student) {
         repository.save(student);
     }
-    @DeleteMapping(path = "/api/students/{id}")
-    public void deleteCustomerById(@PathVariable int id) {
-        try {
-            customerService.removeCustomer(id);
-        }
-        catch(Exception ex){
-            ResponseEntity.status(1001);
-        }
+
+    @DeleteMapping(path = "/api/customers/{id}")
+    public void deleteCustomerById(@PathVariable int id) throws Exception {
+        customerService.removeCustomer(id);
 
     }
 
     @PostMapping(path = "/api/addCustomer")
-    public void addCustomer(@RequestBody Customer user) {
-        try {
-            customerService.addNewCustomer(user);
-        }
-        catch(Exception ex){
-            ResponseEntity.status(1001);
-        }
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer user) throws Exception {
+        return ResponseEntity.ok(customerService.addNewCustomer(user));
     }
 }

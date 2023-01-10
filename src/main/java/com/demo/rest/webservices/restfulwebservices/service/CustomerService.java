@@ -17,13 +17,17 @@ public class CustomerService {
     }
 
 
-    public Customer addNewCustomer(Customer customer) {
+    public Customer addNewCustomer(Customer customer) throws Exception{
+        Optional<Customer> existingCustomer = repository.findById(customer.getId());
+        if (existingCustomer != null && existingCustomer.isPresent()) {
+            throw new Exception("Customer ID already exists!");
+        }
         return repository.save(customer);
     }
 
     public void removeCustomer(int id) throws Exception{
         Optional<Customer> existingCustomer = repository.findById(id);
-        if (existingCustomer == null) {
+        if (existingCustomer.isEmpty()) {
             throw new Exception("Customer does not exist to delete!");
         }
         repository.deleteById(id);

@@ -49,7 +49,7 @@ public class CustomerRepositoryTest {
 
     @DisplayName("should find customer by id")
     @Test
-    public void givenStudentObject_whenSave_thenFindStudent(){
+    public void givenCustomerObject_whenSave_thenFindStudent(){
         Customer savedCustomer = repository.save(customer);
         Optional<Customer> testCustomer = repository.findById(111);
 
